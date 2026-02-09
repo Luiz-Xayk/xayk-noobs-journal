@@ -15,13 +15,13 @@
 ## 📸 Preview
 
 <p align="center">
-  <img src="assets/screenshot_expanded.png" alt="Overlay Expanded" width="600"/>
+  <img src="assets/img-1.png" alt="Overlay Expanded" width="700"/>
   <br>
   <em>Overlay expanded - showing current task</em>
 </p>
 
 <p align="center">
-  <img src="assets/screenshot_minimized.png" alt="Overlay Minimized" width="600"/>
+  <img src="assets/img-2.png" alt="Overlay Minimized" width="700"/>
   <br>
   <em>Overlay minimized - non-intrusive bar</em>
 </p>
