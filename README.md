@@ -4,88 +4,75 @@
   <img src="https://img.shields.io/badge/Gemini-Vision_AI-red?style=for-the-badge&logo=google" alt="Gemini"/>
 </p>
 
-# 🎮 Xayk Noob's Journal
+# Xayk Noob's Journal
 
-**AI-powered overlay assistant for retro games.** Uses Google's Gemini Vision to analyze your game screen in real-time and provide contextual guidance from walkthroughs.
+An overlay assistant for retro games that uses Gemini Vision to analyze your screen and provide guidance from walkthroughs.
 
-> ⚠️ **This project is currently in BETA.** Many features are still being developed and improved. Contributions and feedback are welcome!
+> **Note:** This project is in beta. Some features are still being developed.
 
 ---
 
-## 📸 Preview
+## Preview
 
 <p align="center">
   <img src="assets/img-1.png" alt="Overlay Expanded" width="700"/>
   <br>
-  <em>Overlay expanded - showing current task</em>
+  <em>Overlay expanded</em>
 </p>
 
 <p align="center">
   <img src="assets/img-2.png" alt="Overlay Minimized" width="700"/>
   <br>
-  <em>Overlay minimized - non-intrusive bar</em>
+  <em>Overlay minimized</em>
 </p>
 
 ---
 
-## 🚀 How to Use
+## How to Use
 
 ### Requirements
 
 | Requirement | Description |
 |-------------|-------------|
-| **Python 3.10+** | [Download here](https://www.python.org/downloads/) |
-| **Gemini API Key** | Free at [Google AI Studio](https://aistudio.google.com/app/apikey) |
+| Python 3.10+ | [Download here](https://www.python.org/downloads/) |
+| Gemini API Key | Free at [Google AI Studio](https://aistudio.google.com/app/apikey) |
 
 ### Installation (Windows)
 
-1. **Clone or download** this repository
+1. Clone or download this repository
 
-2. **Run the installer**
-   
-   Double-click `install.bat` and wait for completion.
+2. Double-click `install.bat` and wait for completion
 
-3. **Configure your API key**
-   
-   Open the `.env` file created in the project folder:
-   ```env
+3. Open the `.env` file and add your API key:
+   ```
    GEMINI_API_KEY=your_api_key_here
    ```
-   
-   Replace `your_api_key_here` with your actual Gemini API key.
 
-4. **Start the application**
-   
-   Double-click `run.bat`
+4. Double-click `run.bat` to start
 
 ### Manual Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Luiz-Xayk/xayk-noobs-journal.git
 cd xayk-noobs-journal
 
-# Create and activate virtual environment
 python -m venv venv
 .\venv\Scripts\activate          # Windows
 source venv/bin/activate         # Linux/Mac
 
-# Install dependencies
 pip install -r requirements.txt
 
-# Setup environment
 copy env.example .env            # Windows
 cp env.example .env              # Linux/Mac
 
 # Edit .env and add your GEMINI_API_KEY
 
-# Run
 python main.py
 ```
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
@@ -99,37 +86,30 @@ python main.py
 └─────────────────┘     └──────────────────┘
 ```
 
-### The Pipeline
+1. **Screen Capture** - Captures your game screen at regular intervals (default: 15s)
 
-1. **Screen Capture** → Captures your game screen at regular intervals (default: 15s)
+2. **Vision Analysis** - Gemini Vision analyzes the screenshot to understand current location, UI elements, and what's happening
 
-2. **AI Vision Analysis** → Sends the screenshot to Gemini Vision API, which understands:
-   - Current location in the game
-   - What's happening on screen
-   - UI elements, characters, environment
+3. **Knowledge Base** - Searches local game guides for relevant context
 
-3. **Knowledge Base Query** → Searches the local game guides for relevant context based on the visual analysis
+4. **Task Generation** - Generates your next objective based on the analysis
 
-4. **Task Generation** → Combines the visual analysis with guide knowledge to generate your next objective
-
-5. **Overlay Display** → Shows the task in a non-intrusive retro-styled overlay
+5. **Overlay** - Displays the task in a non-intrusive overlay
 
 ### Overlay Controls
 
 | Action | Result |
 |--------|--------|
-| **Drag** | Move the overlay anywhere |
-| **Click `─`** | Minimize to compact bar |
-| **Click bar** | Expand overlay |
-| **🟡 Yellow dot** | New task available! |
+| Drag | Move the overlay |
+| Click `-` | Minimize to bar |
+| Click bar | Expand overlay |
+| Yellow dot | New task available |
 
 ---
 
-## 📁 Adding Game Guides
+## Adding Game Guides
 
-Place your game walkthrough files in the `guides/` folder.
-
-**Supported format:** `.txt` files
+Place `.txt` walkthrough files in the `guides/` folder.
 
 After adding new guides:
 ```bash
@@ -138,25 +118,24 @@ python main.py --mode reindex
 
 ---
 
-## 🎮 Tested Emulators
+## Tested Emulators
 
-- ✅ PCSX2 (PS2)
-- ✅ DuckStation (PS1)
-- ✅ RetroArch
-- Should work with any windowed game!
+- PCSX2 (PS2)
+- DuckStation (PS1)
+- RetroArch
+- Should work with any windowed game
 
 ---
 
-## ⚠️ Known Limitations (Beta)
+## Known Limitations
 
 - **API Rate Limits**: Free Gemini tier allows ~15 requests/minute
 - **Visual Recognition**: Works best with games that have clear visual cues
 - **Guide Quality**: Results depend on the quality of your walkthrough files
-- **Language**: Currently optimized for English guides
 
 ---
 
-## 🛠️ Roadmap
+## Roadmap
 
 - [ ] Multi-language support
 - [ ] Better guide parsing
@@ -167,29 +146,12 @@ python main.py --mode reindex
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-This project is in **active development**! We welcome:
-
-- 🐛 Bug reports
-- 💡 Feature suggestions
-- 📝 Game guide contributions
-- 🔧 Code improvements
-
-Feel free to open an issue or submit a pull request!
+Bug reports, feature suggestions, and pull requests are welcome.
 
 ---
 
-## 📝 License
+## License
 
-MIT License - feel free to use and modify!
-
----
-
-<p align="center">
-  Made with ❤️ for retro gaming enthusiasts
-  <br><br>
-  <a href="https://github.com/Luiz-Xayk/xayk-noobs-journal/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/Luiz-Xayk/xayk-noobs-journal/issues">Request Feature</a>
-</p>
+MIT License
