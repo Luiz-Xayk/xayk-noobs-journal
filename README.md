@@ -15,7 +15,15 @@
 ## 📸 Preview
 
 <p align="center">
-  <i>Screenshot coming soon...</i>
+  <img src="assets/screenshot_expanded.png" alt="Overlay Expanded" width="600"/>
+  <br>
+  <em>Overlay expanded - showing current task</em>
+</p>
+
+<p align="center">
+  <img src="assets/screenshot_minimized.png" alt="Overlay Minimized" width="600"/>
+  <br>
+  <em>Overlay minimized - non-intrusive bar</em>
 </p>
 
 ---
@@ -54,7 +62,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/xayk-noobs-journal.git
+git clone https://github.com/Luiz-Xayk/xayk-noobs-journal.git
 cd xayk-noobs-journal
 
 # Create and activate virtual environment
@@ -181,7 +189,7 @@ MIT License - feel free to use and modify!
 <p align="center">
   Made with ❤️ for retro gaming enthusiasts
   <br><br>
-  <a href="https://github.com/YOUR_USERNAME/xayk-noobs-journal/issues">Report Bug</a>
+  <a href="https://github.com/Luiz-Xayk/xayk-noobs-journal/issues">Report Bug</a>
   ·
-  <a href="https://github.com/YOUR_USERNAME/xayk-noobs-journal/issues">Request Feature</a>
+  <a href="https://github.com/Luiz-Xayk/xayk-noobs-journal/issues">Request Feature</a>
 </p>
