@@ -1,0 +1,28 @@
+# Xayk Noob's Journal - Dependencies
+
+# Screen capture
+mss>=9.0.1
+pywin32>=306
+
+# Image processing
+opencv-python>=4.9.0
+numpy>=1.26.0
+Pillow>=10.2.0
+
+# OCR (text recognition)
+easyocr>=1.7.1
+
+# Knowledge base & embeddings
+langchain>=0.1.0
+langchain-community>=0.0.20
+chromadb>=0.4.22
+sentence-transformers>=2.2.0
+
+# AI - Gemini Vision
+google-genai>=1.0.0
+
+# UI
+PyQt6>=6.6.1
+
+# Utils
+python-dotenv>=1.0.0

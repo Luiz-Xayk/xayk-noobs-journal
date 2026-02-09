@@ -1,0 +1,214 @@
+# Metal Gear Solid 2: Sons of Liberty - Game Data
+# Format: AREA | VISUAL_DESCRIPTION | OBJECTIVE | ITEMS | NEXT_STEP | TIPS
+
+==============================================================================
+TANKER CHAPTER - SOLID SNAKE
+==============================================================================
+
+## AFT DECK (Deck de Popa - Início)
+- Visual: Deck externo do navio na chuva, caixas de carga verdes, tubulações grandes, luz de holofotes
+- Objetivo: Infiltrar o tanker sem ser detectado
+- Items: Nenhum nesta área inicial
+- Próximo: Descer pela escotilha para o interior do navio (Navigation Deck)
+- Dica: A chuva abafa o som dos passos. Use as caixas como cobertura.
+
+## AFT DECK - ÁREA DOS HOLOFOTES
+- Visual: Área com holofotes rotativos, guardas patrulhando, caixas empilhadas
+- Objetivo: Passar pelos holofotes sem ser visto
+- Items: Ração atrás das caixas à direita
+- Próximo: Continuar para a escotilha no final do deck
+- Dica: Espere os holofotes passarem antes de se mover. Se um guarda ver você, esconda-se até o Alerta acabar.
+
+## DECK-A, CREW'S QUARTERS (Alojamento da Tripulação)
+- Visual: Corredor interno estreito, portas de cabines dos dois lados, iluminação artificial
+- Objetivo: Atravessar sem alertar os guardas nos quartos
+- Items: Ração no armário do corredor, M9 Tranquilizer ammo
+- Próximo: Seguir para Deck-A, Crew's Lounge
+- Dica: Guardas podem sair das cabines. Bata na parede para atrair e nocautear.
+
+## DECK-A, CREW'S LOUNGE (Sala de Descanso)
+- Visual: Sala com sofás, TV ligada, bar, máquinas de venda
+- Objetivo: Passar pela sala sem ser detectado
+- Items: Ração na máquina de venda (atire nela)
+- Próximo: Escada para Deck-B
+- Dica: Guarda assiste TV - passe por trás dele silenciosamente.
+
+## DECK-B, CREW'S QUARTERS
+- Visual: Outro corredor de alojamentos, mais guardas patrulhando
+- Objetivo: Continuar descendo no navio
+- Items: Pentazemin no armário
+- Próximo: Deck-C
+- Dica: Use o M9 para nocautear guardas de longe.
+
+## DECK-C, CREW'S QUARTERS
+- Visual: Corredor similar, porém com mais guardas
+- Objetivo: Chegar ao Deck-D
+- Items: Bandagem
+- Próximo: Deck-D
+- Dica: Rasteje sob as janelas para não ser visto.
+
+## DECK-D, CREW'S QUARTERS
+- Visual: Último deck de alojamentos antes do Engine Room
+- Objetivo: Encontrar a entrada para Engine Room
+- Items: Chaff Grenade
+- Próximo: Engine Room
+- Dica: Guarda dorme em uma das cabines - não faça barulho.
+
+## ENGINE ROOM (Sala de Máquinas)
+- Visual: Sala enorme com máquinas gigantes, passarelas metálicas, muito barulho
+- Objetivo: Atravessar a sala de máquinas
+- Items: Ração, M9 ammo
+- Próximo: Deck-2, Port
+- Dica: O barulho das máquinas abafa seus passos, mas os guardas patrulham as passarelas.
+
+## DECK-2, PORT (Convés de Carga)
+- Visual: Área de carga com containers, tela mostrando o Metal Gear RAY
+- Objetivo: Fotografar o Metal Gear RAY
+- Items: Camera já equipada
+- Próximo: Tire 4 fotos do RAY conforme Otacon instruir
+- Dica: Use a câmera com R1. Fotografe: frente, "MARINES", "RAY", e uma dos containers.
+
+## BOSS: OLGA GURLUKOVICH
+- Visual: Deck externo, tempestade, lona cobrindo área, Olga armada
+- Objetivo: Derrotar Olga em combate
+- Items: USP (pegar após derrotar Olga)
+- Próximo: Retornar ao Engine Room após cutscene
+- Dica: Atire na luz para cegá-la. Quando ela se esconder, espere ela recarregar para atirar.
+
+## HOLDS (Porões) - ÁREA DOS MARINES
+- Visual: Porão enorme cheio de Marines fazendo guarda ao Metal Gear RAY
+- Objetivo: Tirar as fotos do RAY sem ser detectado
+- Items: Nenhum - área de fotos
+- Próximo: Após fotos, cutscene com Ocelot
+- Dica: Use as passarelas superiores. Fotografe de cima para não ser visto.
+
+==============================================================================
+PLANT CHAPTER - RAIDEN
+==============================================================================
+
+## STRUT A, DEEP SEA DOCK
+- Visual: Doca subaquática, piscina de entrada, elevadores
+- Objetivo: Infiltrar a Big Shell
+- Items: M9 fornecido pelo Coronel
+- Próximo: Strut A Roof
+- Dica: Sua arma é tranquilizante - não mata, apenas adormece.
+
+## STRUT A, ROOF
+- Visual: Telhado externo, chuva, passarelas conectando aos outros Struts
+- Objetivo: Encontrar o primeiro refém
+- Items: Ração
+- Próximo: Strut A, Pump Room ou AB Connecting Bridge
+- Dica: Guardas patrulham o telhado - use cobertura.
+
+## AB CONNECTING BRIDGE
+- Visual: Ponte conectando Strut A e B, aberta ao mar
+- Objetivo: Atravessar para Strut B
+- Items: Nenhum
+- Próximo: Strut B
+- Dica: Cuidado com o vento - pode afetar a mira.
+
+## STRUT B, TRANSFORMER ROOM
+- Visual: Sala com transformadores elétricos, painéis de controle
+- Objetivo: Atravessar para BC Bridge
+- Items: Chaff Grenade
+- Próximo: BC Connecting Bridge
+- Dica: Câmeras de segurança - use Chaff para desabilitar.
+
+## BC CONNECTING BRIDGE
+- Visual: Ponte longa sobre o mar
+- Objetivo: Atravessar para Strut C
+- Items: Nenhum
+- Próximo: Strut C, Dining Hall - ENCONTRO COM FORTUNE
+- Dica: Cutscene com Fortune - ela é invencível por enquanto!
+
+## STRUT C, DINING HALL
+- Visual: Refeitório com mesas, cozinha ao lado
+- Objetivo: Encontrar Peter Stillman
+- Items: Coolant Spray (Peter dá para você)
+- Próximo: Começar a desativar bombas C4
+- Dica: Peter ensina sobre as bombas - preste atenção nas instruções.
+
+## MISSÃO: DESATIVAR BOMBAS C4
+- Visual: Várias localizações nos Struts A, B, C, D, E, F
+- Objetivo: Encontrar e desativar todas as bombas C4 com o Coolant
+- Items: Sensor de bombas (Peter fornece)
+- Próximo: Após desativar todas, retornar a Strut A
+- Dica: Use o sensor para encontrar as bombas. Spray com Coolant até congelar.
+
+## STRUT F, WAREHOUSE
+- Visual: Armazém grande com caixas, prateleiras altas
+- Objetivo: Encontrar o Nikita Launcher
+- Items: Nikita Launcher, ammo
+- Próximo: Usar Nikita para alcançar áreas inacessíveis
+- Dica: Nikita é um míssil controlável - útil para atirar em alvos distantes.
+
+## BOSS: FATMAN
+- Visual: Heliporto (Strut E), Fatman em patins, bombas espalhadas
+- Objetivo: Derrotar Fatman
+- Items: Nada durante a luta
+- Próximo: Após derrotar, desativar a última bomba em seu corpo
+- Dica: Atire nas pernas para derrubá-lo. Quando cair, atire na cabeça. Desative bombas que ele plantar!
+
+## SHELL 1 CORE
+- Visual: Interior da estrutura Shell 1, corredores metálicos
+- Objetivo: Infiltrar o core e encontrar o Presidente
+- Items: Vários ao longo do caminho
+- Próximo: Encontrar AK Suppressor, continuar subindo
+- Dica: Muitos guardas - jogo de stealth intenso.
+
+## BOSS: VAMP (PRIMEIRO ENCONTRO)
+- Visual: Piscina no Shell 1 Core B2
+- Objetivo: Derrotar Vamp
+- Items: Nada durante a luta
+- Próximo: Continuar para encontrar Emma
+- Dica: Atire na cabeça quando ele emergir da água. Evite os facas!
+
+## SHELL 2 CORE
+- Visual: Estrutura similar ao Shell 1
+- Objetivo: Encontrar Emma Emmerich
+- Items: Vários
+- Próximo: Escoltar Emma de volta
+- Dica: Emma tem medo de água e insetos - guie-a com cuidado.
+
+## BOSS: VAMP (SEGUNDO ENCONTRO)
+- Visual: Oil Fence
+- Objetivo: Proteger Emma enquanto ela atravessa
+- Items: PSG1 Sniper Rifle
+- Próximo: Após derrotar Vamp, cutscene
+- Dica: Use o Sniper para atirar em Vamp. Proteja Emma!
+
+## ARSENAL GEAR
+- Visual: Interior do Arsenal Gear, corredores metálicos futuristas
+- Objetivo: Escapar com Snake
+- Items: High Frequency Blade (HF Blade)
+- Próximo: Lutar através dos Metal Gear RAYs
+- Dica: Agora você tem a espada! Use para cortar inimigos.
+
+## BOSS: METAL GEAR RAYs
+- Visual: Arena com múltiplos Metal Gear RAY
+- Objetivo: Destruir os RAYs
+- Items: Stinger Missile
+- Próximo: Após destruir suficientes, cutscene
+- Dica: Atire nos joelhos, depois na cabeça quando abrir. Snake ajuda!
+
+## BOSS: SOLIDUS SNAKE
+- Visual: Topo de Federal Hall, New York
+- Objetivo: Derrotar Solidus em combate de espadas
+- Items: HF Blade
+- Próximo: Final do jogo
+- Dica: Bloqueie com L1, ataque quando ele abrir guarda. Combo de ataques funciona bem.
+
+==============================================================================
+CODEC FREQUENCIES IMPORTANTES
+==============================================================================
+
+## TANKER
+- Otacon: 141.12 - Dicas, salvar jogo
+- Coronel: 140.85 - Missão principal
+
+## PLANT
+- Coronel: 140.85 - Missão principal
+- Rose: 140.96 - Salvar jogo, história pessoal
+- Pliskin (Snake): 141.80 - Dicas de combate
+- Peter Stillman: 140.25 - Missão das bombas
+- Mr. X: 140.48 - Informações secretas

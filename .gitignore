@@ -1,0 +1,42 @@
+# Virtual environments
+venv/
+venv_win/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Environment variables (contains API keys!)
+.env
+
+# ChromaDB database (generated locally)
+chroma_db/
+
+# Debug images
+debug/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# PyInstaller
+*.spec
