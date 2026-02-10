@@ -1,145 +1,269 @@
 import os
+import re
+import math
 from pathlib import Path
 from typing import List, Optional, Dict
 import hashlib
-
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import TextLoader
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_core.documents import Document
+import json
 
 
 class KnowledgeBase:
+    """
+    Knowledge base for game guides.
+    Uses TF-IDF text search (no PyTorch/ONNX/DLL dependencies).
+    Works perfectly in .exe without any heavy ML libraries.
+    
+    Supports two folder structures:
+    1. Flat: guides/*.txt
+    2. By game: guides/GameName/*.txt
+    """
     
     def __init__(self, 
                  guides_folder: str = "guides",
-                 db_folder: str = "chroma_db",
-                 embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"):
+                 db_folder: str = "chroma_db"):
         self.guides_folder = Path(guides_folder)
         self.db_folder = Path(db_folder)
         
         self.guides_folder.mkdir(exist_ok=True)
         self.db_folder.mkdir(exist_ok=True)
         
+        self.chunks: List[Dict] = []
+        self.idf: Dict[str, float] = {}
+        
         print("Loading embedding model...")
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name=embedding_model,
-            model_kwargs={'device': 'cpu'},
-            encode_kwargs={'normalize_embeddings': True}
-        )
-        print("Embedding model loaded!")
-        
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500,
-            chunk_overlap=50,
-            length_function=len,
-            separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""]
-        )
-        
-        self.vectorstore: Optional[Chroma] = None
         self._load_or_create_db()
+        print("Embedding model loaded!")
+    
+    def _tokenize(self, text: str) -> List[str]:
+        """Simple tokenization: lowercase, split on non-alphanumeric"""
+        return re.findall(r'[a-z0-9]+', text.lower())
+    
+    def _compute_tf(self, tokens: List[str]) -> Dict[str, float]:
+        """Compute term frequency"""
+        tf = {}
+        for token in tokens:
+            tf[token] = tf.get(token, 0) + 1
+        total = len(tokens) if tokens else 1
+        return {t: c / total for t, c in tf.items()}
+    
+    def _compute_idf(self):
+        """Compute inverse document frequency across all chunks"""
+        n_docs = len(self.chunks)
+        if n_docs == 0:
+            return
+        
+        doc_freq = {}
+        for chunk in self.chunks:
+            tokens = set(self._tokenize(chunk["content"]))
+            for token in tokens:
+                doc_freq[token] = doc_freq.get(token, 0) + 1
+        
+        self.idf = {}
+        for token, freq in doc_freq.items():
+            self.idf[token] = math.log(n_docs / (1 + freq))
+    
+    def _tfidf_score(self, query_tokens: List[str], doc_tokens: List[str]) -> float:
+        """Compute TF-IDF similarity between query and document"""
+        if not query_tokens or not doc_tokens:
+            return 0.0
+        
+        doc_tf = self._compute_tf(doc_tokens)
+        query_tf = self._compute_tf(query_tokens)
+        
+        score = 0.0
+        for token in query_tokens:
+            if token in doc_tf:
+                idf = self.idf.get(token, 1.0)
+                score += query_tf[token] * doc_tf[token] * idf * idf
+        
+        return score
     
     def _get_guides_hash(self) -> str:
+        """Generate hash of all guide files for change detection"""
         hash_content = ""
         if self.guides_folder.exists():
             for file in sorted(self.guides_folder.glob("*.txt")):
                 stat = file.stat()
                 hash_content += f"{file.name}:{stat.st_size}:{stat.st_mtime}"
+            
+            for game_folder in sorted(self.guides_folder.iterdir()):
+                if game_folder.is_dir():
+                    for file in sorted(game_folder.glob("*.txt")):
+                        stat = file.stat()
+                        hash_content += f"{game_folder.name}/{file.name}:{stat.st_size}:{stat.st_mtime}"
+        
         return hashlib.md5(hash_content.encode()).hexdigest()
+    
+    def _discover_guides(self) -> List[Dict]:
+        """Discover all guide files in the guides folder."""
+        guides = []
+        
+        for txt_file in self.guides_folder.glob("*.txt"):
+            game_name = txt_file.stem.replace("_", " ")
+            guides.append({"path": txt_file, "game_name": game_name})
+        
+        for game_folder in self.guides_folder.iterdir():
+            if game_folder.is_dir() and not game_folder.name.startswith("."):
+                game_name = game_folder.name.replace("_", " ")
+                for txt_file in game_folder.glob("*.txt"):
+                    guides.append({"path": txt_file, "game_name": game_name})
+        
+        return guides
+    
+    def _split_text(self, text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]:
+        """Split text into overlapping chunks"""
+        chunks = []
+        # Split by paragraphs first
+        paragraphs = text.split("\n\n")
+        
+        current_chunk = ""
+        for para in paragraphs:
+            para = para.strip()
+            if not para:
+                continue
+            
+            if len(current_chunk) + len(para) > chunk_size and current_chunk:
+                chunks.append(current_chunk.strip())
+                # Keep overlap from end of previous chunk
+                words = current_chunk.split()
+                overlap_words = words[-min(10, len(words)):]
+                current_chunk = " ".join(overlap_words) + "\n\n" + para
+            else:
+                current_chunk += ("\n\n" if current_chunk else "") + para
+        
+        if current_chunk.strip():
+            chunks.append(current_chunk.strip())
+        
+        # If no paragraph splits, split by lines
+        if not chunks and text.strip():
+            lines = text.strip().split("\n")
+            current_chunk = ""
+            for line in lines:
+                if len(current_chunk) + len(line) > chunk_size and current_chunk:
+                    chunks.append(current_chunk.strip())
+                    current_chunk = line
+                else:
+                    current_chunk += ("\n" if current_chunk else "") + line
+            if current_chunk.strip():
+                chunks.append(current_chunk.strip())
+        
+        return chunks if chunks else [text.strip()] if text.strip() else []
     
     def _load_or_create_db(self):
         hash_file = self.db_folder / "guides_hash.txt"
+        index_file = self.db_folder / "chunks_index.json"
         current_hash = self._get_guides_hash()
         
         needs_reindex = True
-        if hash_file.exists():
+        if hash_file.exists() and index_file.exists():
             stored_hash = hash_file.read_text().strip()
-            if stored_hash == current_hash and (self.db_folder / "chroma.sqlite3").exists():
+            if stored_hash == current_hash:
                 needs_reindex = False
         
         if needs_reindex:
             print("Indexing guides...")
             self._index_guides()
             hash_file.write_text(current_hash)
+            # Save index to disk
+            with open(index_file, 'w', encoding='utf-8') as f:
+                json.dump(self.chunks, f, ensure_ascii=False, indent=1)
         else:
             print("Loading existing knowledge base...")
-            self.vectorstore = Chroma(
-                persist_directory=str(self.db_folder),
-                embedding_function=self.embeddings
-            )
-            print(f"Loaded {self.vectorstore._collection.count()} chunks")
+            with open(index_file, 'r', encoding='utf-8') as f:
+                self.chunks = json.load(f)
+            self._compute_idf()
+            print(f"Loaded {len(self.chunks)} chunks")
     
     def _index_guides(self):
-        documents = []
-        txt_files = list(self.guides_folder.glob("*.txt"))
+        """Index all guide files"""
+        guides = self._discover_guides()
+        self.chunks = []
         
-        if not txt_files:
+        if not guides:
             print(f"No .txt files found in '{self.guides_folder}'")
-            documents = [Document(
-                page_content="No guides loaded yet. Add .txt files to the guides/ folder.",
-                metadata={"source": "placeholder"}
-            )]
-        else:
-            for txt_file in txt_files:
-                print(f"  Processing: {txt_file.name}")
-                try:
-                    loader = TextLoader(str(txt_file), encoding='utf-8')
-                    docs = loader.load()
-                    
-                    game_name = txt_file.stem
-                    for doc in docs:
-                        doc.metadata["game"] = game_name
-                        doc.metadata["source"] = str(txt_file)
-                    
-                    documents.extend(docs)
-                except Exception as e:
-                    print(f"  Error loading {txt_file.name}: {e}")
+            return
         
-        chunks = self.text_splitter.split_documents(documents)
-        print(f"  Total chunks created: {len(chunks)}")
+        games_found = set()
         
-        self.vectorstore = Chroma.from_documents(
-            documents=chunks,
-            embedding=self.embeddings,
-            persist_directory=str(self.db_folder)
-        )
+        for guide_info in guides:
+            txt_file = guide_info["path"]
+            game_name = guide_info["game_name"]
+            games_found.add(game_name)
+            
+            print(f"  Processing: {txt_file.name} ({game_name})")
+            try:
+                content = txt_file.read_text(encoding='utf-8')
+                text_chunks = self._split_text(content)
+                
+                for chunk_text in text_chunks:
+                    self.chunks.append({
+                        "content": chunk_text,
+                        "game": game_name,
+                        "source": str(txt_file),
+                        "file_name": txt_file.name
+                    })
+            except Exception as e:
+                print(f"  Error loading {txt_file.name}: {e}")
         
-        print(f"Knowledge base indexed with {len(chunks)} chunks")
+        print(f"  Games found: {', '.join(sorted(games_found))}")
+        print(f"  Total chunks created: {len(self.chunks)}")
+        
+        self._compute_idf()
+        print(f"Knowledge base indexed with {len(self.chunks)} chunks")
     
     def reindex(self):
+        """Force reindex of all guides"""
         print("Forcing reindex...")
         hash_file = self.db_folder / "guides_hash.txt"
         if hash_file.exists():
             hash_file.unlink()
+        index_file = self.db_folder / "chunks_index.json"
+        if index_file.exists():
+            index_file.unlink()
         self._load_or_create_db()
     
     def search(self, query: str, k: int = 3, 
                game_filter: Optional[str] = None) -> List[Dict]:
-        if not self.vectorstore:
+        """Search for relevant content in the knowledge base."""
+        if not self.chunks or not query.strip():
             return []
         
-        filter_dict = None
-        if game_filter:
-            filter_dict = {"game": game_filter}
+        query_tokens = self._tokenize(query)
+        if not query_tokens:
+            return []
         
-        results = self.vectorstore.similarity_search_with_relevance_scores(
-            query, k=k, filter=filter_dict
-        )
+        scored = []
+        for chunk in self.chunks:
+            if game_filter and chunk.get("game") != game_filter:
+                continue
+            
+            doc_tokens = self._tokenize(chunk["content"])
+            score = self._tfidf_score(query_tokens, doc_tokens)
+            
+            if score > 0:
+                scored.append({
+                    "content": chunk["content"],
+                    "game": chunk.get("game", "unknown"),
+                    "source": chunk.get("source", "unknown"),
+                    "relevance": score
+                })
         
-        formatted = []
-        for doc, score in results:
-            formatted.append({
-                "content": doc.page_content,
-                "game": doc.metadata.get("game", "unknown"),
-                "source": doc.metadata.get("source", "unknown"),
-                "relevance": score
-            })
+        # Sort by relevance descending
+        scored.sort(key=lambda x: x["relevance"], reverse=True)
         
-        return formatted
+        # Normalize scores
+        if scored:
+            max_score = scored[0]["relevance"]
+            if max_score > 0:
+                for item in scored:
+                    item["relevance"] = item["relevance"] / max_score
+        
+        return scored[:k]
     
-    def search_context(self, screen_text: str, k: int = 3) -> str:
-        results = self.search(screen_text, k=k)
+    def search_context(self, screen_text: str, k: int = 3, 
+                       game_filter: Optional[str] = None) -> str:
+        """Search and return formatted context string"""
+        results = self.search(screen_text, k=k, game_filter=game_filter)
         
         if not results:
             return ""
@@ -151,96 +275,28 @@ class KnowledgeBase:
         return "\n\n".join(context_parts)
     
     def list_games(self) -> List[str]:
-        if not self.vectorstore:
-            return []
-        
-        collection = self.vectorstore._collection
-        results = collection.get(include=["metadatas"])
-        
+        """List all indexed games"""
         games = set()
-        for metadata in results.get("metadatas", []):
-            if metadata and "game" in metadata:
-                games.add(metadata["game"])
-        
+        for chunk in self.chunks:
+            if chunk.get("game"):
+                games.add(chunk["game"])
         return sorted(list(games))
     
     def get_stats(self) -> Dict:
-        if not self.vectorstore:
-            return {"status": "not_initialized"}
-        
-        collection = self.vectorstore._collection
-        count = collection.count()
+        """Get statistics about the knowledge base"""
         games = self.list_games()
-        
         return {
-            "total_chunks": count,
+            "total_chunks": len(self.chunks),
             "total_games": len(games),
             "games": games,
             "db_path": str(self.db_folder)
         }
 
 
-def create_sample_guide():
-    guides_folder = Path("guides")
-    guides_folder.mkdir(exist_ok=True)
-    
-    sample_guide = """
-=== RESIDENT EVIL 2 - COMPLETE WALKTHROUGH ===
-
-== SCENARIO A - LEON ==
-
---- POLICE STATION - ENTRANCE ---
-When entering the police station, pick up the AMMO on the reception counter.
-Go to the door on the left side to find the STATION MAP.
-
---- POLICE STATION - EAST CORRIDOR ---
-Watch out for zombies in this area! There are 3 zombies in the corridor.
-Pick up the HEART KEY on the office desk.
-Use the Heart Key on the door to the right.
-
---- POLICE STATION - CHIEF'S OFFICE ---
-Examine the chief's desk to find the CHIEF'S LETTER.
-The safe in this room requires the combination: LEFT 2, RIGHT 11, LEFT 14.
-Inside the safe is the MEDALLION PIECE.
-
---- POLICE STATION - ARCHIVE ROOM ---
-Examine the files to discover the laboratory location.
-Pick up the WOODPECKER KEY in the locked drawer (use the crowbar).
-
---- LABORATORY - ENTRANCE ---
-Use the SPECIAL KEY to open the main door.
-Watch out for Lickers! Walk slowly to avoid attracting attention.
-
---- LABORATORY - GENERATOR ROOM ---
-To restore power:
-1. First activate the blue panel
-2. Then activate the red panel  
-3. Finally the green panel
-Power will be restored and you can proceed.
-
---- FINAL BOSS - G1 ---
-Shoot the exposed area (the eye on the shoulder).
-Use grenades when he's stunned.
-Approximately 15-20 magnum shots will defeat G1.
-
-=== END OF SCENARIO A ===
-"""
-    
-    sample_file = guides_folder / "resident_evil_2.txt"
-    sample_file.write_text(sample_guide, encoding='utf-8')
-    print(f"Sample guide created: {sample_file}")
-    return sample_file
-
-
 def main():
     print("=" * 50)
     print("Xayk Noob's Journal - Knowledge Base Test")
     print("=" * 50)
-    
-    guides_folder = Path("guides")
-    if not guides_folder.exists() or not list(guides_folder.glob("*.txt")):
-        print("\nCreating sample guide for testing...")
-        create_sample_guide()
     
     print("\nInitializing knowledge base...")
     kb = KnowledgeBase()
@@ -251,10 +307,9 @@ def main():
     print(f"   Indexed games: {stats['games']}")
     
     test_queries = [
-        "Generator Room restore power",
-        "Heart Key",
-        "safe combination",
-        "defeat boss G1"
+        "codec",
+        "Snake",
+        "objectives"
     ]
     
     print("\nTesting searches:")
@@ -265,8 +320,8 @@ def main():
         results = kb.search(query, k=2)
         
         for i, result in enumerate(results, 1):
-            content_preview = result['content'][:150].replace('\n', ' ')
-            print(f"   [{i}] (relevance: {result['relevance']:.2f})")
+            content_preview = result['content'][:100].replace('\n', ' ')
+            print(f"   [{i}] Game: {result['game']} (relevance: {result['relevance']:.2f})")
             print(f"       {content_preview}...")
     
     print("\n" + "=" * 50)

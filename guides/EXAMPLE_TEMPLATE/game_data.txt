@@ -1,0 +1,47 @@
+# Game Name Here - Game Data Template
+# Copy this folder for each new game and fill in the data
+
+# Format for each area:
+# ## AREA NAME
+# - Visual: What the player sees on screen
+# - Objective: Current goal for this area
+# - Items: Items available in this area
+# - Next: Where to go next
+# - Tip: Helpful hint (non-spoiler)
+
+==============================================================================
+CHAPTER 1 - EXAMPLE
+==============================================================================
+
+## STARTING AREA
+- Visual: Description of what the area looks like
+- Objective: What the player needs to do here
+- Items: List of items in this area
+- Next: Next area to visit
+- Tip: Helpful gameplay tip
+
+## SECOND AREA
+- Visual: Description
+- Objective: Goal
+- Items: Available items
+- Next: Progression
+- Tip: Hint
+
+==============================================================================
+BOSS FIGHTS
+==============================================================================
+
+## BOSS: BOSS NAME
+- Visual: Arena description
+- Objective: Defeat the boss
+- Items: Useful items for the fight
+- Weakness: How to defeat (without spoiling strategy)
+- Tip: General combat tip
+
+==============================================================================
+IMPORTANT ITEMS
+==============================================================================
+
+## KEY ITEM NAME
+- Location: Where to find it
+- Use: What it does (without spoilers)

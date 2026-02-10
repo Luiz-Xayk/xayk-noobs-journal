@@ -9,11 +9,11 @@ from PyQt6.QtGui import QFont, QColor, QPalette, QIcon, QAction, QCursor
 
 
 class TaskOverlay(QWidget):
-    """Overlay retrô estilo terminal CRT"""
+    """Retro CRT terminal style overlay"""
     
     closed = pyqtSignal()
     
-    # Cores retrô (verde fosforescente estilo terminal)
+    # Retro colors (phosphorescent green terminal style)
     RETRO_GREEN = "rgb(57, 255, 20)"
     RETRO_GREEN_DIM = "rgba(57, 255, 20, 150)"
     RETRO_GREEN_DARK = "rgba(20, 80, 20, 200)"
@@ -49,7 +49,7 @@ class TaskOverlay(QWidget):
         self.main_layout = QVBoxLayout(self)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         
-        # === CONTAINER PRINCIPAL (expandido) ===
+        # === MAIN CONTAINER (expanded) ===
         self.container = QWidget()
         self.container.setObjectName("container")
         self.container.setStyleSheet(f"""
@@ -81,7 +81,7 @@ class TaskOverlay(QWidget):
         
         header_layout.addStretch()
         
-        # Botão minimizar
+        # Minimize button
         self.minimize_btn = QPushButton("─")
         self.minimize_btn.setFixedSize(18, 18)
         self.minimize_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -101,7 +101,7 @@ class TaskOverlay(QWidget):
         self.minimize_btn.clicked.connect(self.toggle_minimize)
         header_layout.addWidget(self.minimize_btn)
         
-        # Botão fechar
+        # Close button
         self.close_btn = QPushButton("×")
         self.close_btn.setFixedSize(18, 18)
         self.close_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -123,7 +123,7 @@ class TaskOverlay(QWidget):
         
         container_layout.addLayout(header_layout)
         
-        # Linha separadora
+        # Separator line
         separator = QLabel("─" * 35)
         separator.setStyleSheet(f"""
             QLabel {{
@@ -184,7 +184,7 @@ class TaskOverlay(QWidget):
         
         container_layout.addLayout(self.status_layout)
         
-        # === CONTAINER MINIMIZADO ===
+        # === MINIMIZED CONTAINER ===
         self.mini_container = QWidget()
         self.mini_container.setObjectName("mini_container")
         self.mini_container.setStyleSheet(f"""
@@ -214,7 +214,7 @@ class TaskOverlay(QWidget):
         """)
         mini_layout.addWidget(self.mini_label)
         
-        # Indicador de nova task quando minimizado
+        # New task indicator when minimized
         self.mini_new_indicator = QLabel("●")
         self.mini_new_indicator.setStyleSheet("color: rgba(255, 200, 50, 200); font-size: 8px;")
         self.mini_new_indicator.hide()
@@ -238,26 +238,26 @@ class TaskOverlay(QWidget):
             self.move(x, y)
     
     def toggle_minimize(self):
-        """Alterna entre modo expandido e minimizado"""
+        """Toggle between expanded and minimized mode"""
         if self._is_minimized:
             self._expand()
         else:
             self._minimize()
     
     def _minimize(self):
-        """Minimiza o overlay"""
+        """Minimize the overlay"""
         self._is_minimized = True
         self.container.hide()
         self.mini_container.show()
         self.setMinimumSize(0, 0)
         self.adjustSize()
         
-        # Se tinha task pendente, mostra indicador
+        # Show indicator if pending task
         if self._pending_task:
             self.mini_new_indicator.show()
     
     def _expand(self):
-        """Expande o overlay"""
+        """Expand the overlay"""
         self._is_minimized = False
         self.mini_container.hide()
         self.container.show()
@@ -265,7 +265,7 @@ class TaskOverlay(QWidget):
         self.setMinimumSize(280, 80)
         self.adjustSize()
         
-        # Aplica task pendente se houver
+        # Apply pending task if any
         if self._pending_task:
             task_text, context = self._pending_task
             self.task_label.setText(task_text)
@@ -278,10 +278,10 @@ class TaskOverlay(QWidget):
     
     def set_task(self, task_text: str, context: Optional[str] = None):
         if self._is_minimized:
-            # Guarda task para quando expandir e mostra indicador
+            # Store task for when expanded and show indicator
             self._pending_task = (task_text, context)
             self.mini_new_indicator.show()
-            # Pisca o indicador
+            # Flash the indicator
             self._flash_mini_indicator()
         else:
             self.task_label.setText(task_text)
@@ -296,7 +296,7 @@ class TaskOverlay(QWidget):
             self._flash_border()
     
     def _flash_mini_indicator(self):
-        """Pisca o indicador de nova task no modo mini"""
+        """Flash the new task indicator in mini mode"""
         self.mini_new_indicator.setStyleSheet("color: rgba(255, 255, 100, 255); font-size: 8px;")
         QTimer.singleShot(300, lambda: self.mini_new_indicator.setStyleSheet("color: rgba(255, 200, 50, 200); font-size: 8px;"))
     
@@ -342,7 +342,7 @@ class TaskOverlay(QWidget):
     
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
-            # Se clicou no mini container, expande
+            # If clicked on mini container, expand
             if self._is_minimized:
                 mini_rect = self.mini_container.geometry()
                 if mini_rect.contains(event.pos()):
@@ -361,7 +361,7 @@ class TaskOverlay(QWidget):
         self._drag_pos = None
     
     def mouseDoubleClickEvent(self, event):
-        """Duplo clique alterna minimizar"""
+        """Double-click toggles minimize"""
         if event.button() == Qt.MouseButton.LeftButton:
             self.toggle_minimize()
 
@@ -369,7 +369,9 @@ class TaskOverlay(QWidget):
 class RetroTaskerApp:
     
     def __init__(self):
-        self.app = QApplication(sys.argv)
+        self.app = QApplication.instance()
+        if self.app is None:
+            self.app = QApplication(sys.argv)
         self.app.setQuitOnLastWindowClosed(False)
         
         self.overlay = TaskOverlay()

@@ -1,0 +1,81 @@
+{
+  "game": "MGS2",
+  "created_at": "2026-02-09T18:48:38.858806",
+  "last_played": "2026-02-10T11:22:35.236348",
+  "play_count": 20,
+  "total_playtime_minutes": 0,
+  "items_found": [],
+  "items_used": [],
+  "locations_visited": [
+    {
+      "name": "Exploring the game interface, I see a screenshot of a game in progress with the title \"Metal Gear Solid 2\" and the current state of the game as \"Starting game\". The area depicted is labeled \"TANK",
+      "first_visited": "2026-02-10T11:00:26.853262"
+    },
+    {
+      "name": "Exploring game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". One",
+      "first_visited": "2026-02-10T11:00:56.866761"
+    },
+    {
+      "name": "Explored game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". Two",
+      "first_visited": "2026-02-10T11:01:06.859928"
+    }
+  ],
+  "current_location": "Explored game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". Two",
+  "objectives_completed": [],
+  "current_objective": null,
+  "notes": [
+    {
+      "text": "Found Key",
+      "type": "note",
+      "created_at": "2026-02-10T11:21:21.864591"
+    },
+    {
+      "text": "Key 1B",
+      "type": "item",
+      "created_at": "2026-02-10T11:21:28.514660"
+    },
+    {
+      "text": "Elevator Hall",
+      "type": "location",
+      "created_at": "2026-02-10T11:21:36.473504"
+    },
+    {
+      "text": "Kiss Lionel Messi",
+      "type": "objective",
+      "created_at": "2026-02-10T11:22:02.495971"
+    }
+  ],
+  "events_log": [
+    {
+      "type": "LOCATION_VISITED",
+      "description": "Visited: Exploring the game interface, I see a screenshot of a game in progress with the title \"Metal Gear Solid 2\" and the current state of the game as \"Starting game\". The area depicted is labeled \"TANK",
+      "timestamp": "2026-02-10T11:00:26.853280"
+    },
+    {
+      "type": "LOCATION_VISITED",
+      "description": "Visited: Exploring game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". One",
+      "timestamp": "2026-02-10T11:00:56.866785"
+    },
+    {
+      "type": "LOCATION_VISITED",
+      "description": "Visited: Explored game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". Two",
+      "timestamp": "2026-02-10T11:01:06.859945"
+    }
+  ],
+  "ai_memory": [
+    {
+      "observation": "1. Current location: Tanker Chapter - Solid Snake\n2. Next action: Go down the hatch to the ship interior (Navigation Deck)\n3. Actionable instruction: Infiltrate the tanker und",
+      "location": "Explored game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". Two",
+      "timestamp": "2026-02-10T11:22:49.028188"
+    },
+    {
+      "observation": "The current location is the Tanker Chapter - Solid Snake. The player should go down the hatch to the ship interior (Navigation Deck).",
+      "location": "Explored game interface, screenshot of MGS2 in progress with title \"Metal Gear Solid 2\" and current state \"Starting game\". Tanker chapter, Solid Snake. Area label \"TANK\". Two",
+      "timestamp": "2026-02-10T11:22:56.987140"
+    }
+  ],
+  "tips_given": [
+    "1. Current location: Tanker Chapter - Solid Snake\n2. Next action: Go down the hatch to the ship interior (Navigation Deck)\n3. Actionable instruction: Infiltrate the tanker und",
+    "The current location is the Tanker Chapter - Solid Snake. The player should go down the hatch to the ship interior (Navigation Deck)."
+  ]
+}

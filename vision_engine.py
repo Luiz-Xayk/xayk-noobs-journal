@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import mss
-import easyocr
 from PIL import Image
 from pathlib import Path
 from typing import Optional, Tuple, List, Dict
@@ -24,15 +23,44 @@ class VisionEngine:
         "ePSXe",
         "RetroArch",
         "Beetle PSX",
+        "PPSSPP",
+        "Dolphin",
+        "Cemu",
+        "mGBA",
+        "VisualBoyAdvance",
+        "Citra",
+        "Yuzu",
+        "Ryujinx",
+        "RPCS3",
+        "Xenia",
+    ]
+    
+    # Known game titles to detect emulator windows by game name
+    GAME_KEYWORDS = [
+        "Metal Gear Solid",
+        "Resident Evil",
+        "Silent Hill",
+        "Final Fantasy",
+        "Castlevania",
+        "Mega Man",
+        "Crash Bandicoot",
+        "Spyro",
+        "Tomb Raider",
+        "God of War",
+        "Kingdom Hearts",
+        "Devil May Cry",
+        "Tekken",
+        "Gran Turismo",
+        "Sons of Liberty",
+        "Snake Eater",
+        "Twin Snakes",
     ]
     
     def __init__(self, debug_folder: str = "debug"):
         self.debug_folder = Path(debug_folder)
         self.debug_folder.mkdir(exist_ok=True)
         
-        print("Loading OCR models...")
-        self.reader = easyocr.Reader(['en'], gpu=False)
-        print("OCR loaded!")
+        print("Vision engine initialized")
         
         self.target_window_handle: Optional[int] = None
         self.target_window_title: str = ""
@@ -69,14 +97,23 @@ class VisionEngine:
         if not WINDOWS_AVAILABLE:
             return False
         
-        titles_to_search = [custom_title] if custom_title else self.EMULATOR_TITLES
+        # Build search list: custom title, emulator names, and game keywords
+        titles_to_search = []
+        if custom_title:
+            titles_to_search.append(custom_title)
+        else:
+            titles_to_search.extend(self.EMULATOR_TITLES)
+            titles_to_search.extend(self.GAME_KEYWORDS)
         
         def callback(hwnd, results):
             if win32gui.IsWindowVisible(hwnd):
                 title = win32gui.GetWindowText(hwnd)
+                if not title:
+                    return True
                 for search_title in titles_to_search:
                     if search_title and search_title.lower() in title.lower():
                         results.append((hwnd, title))
+                        return True
             return True
         
         results = []
@@ -87,6 +124,7 @@ class VisionEngine:
             print(f"Window found: '{self.target_window_title}'")
             return True
         
+        print("No emulator window found")
         return False
     
     def get_window_rect(self) -> Optional[Tuple[int, int, int, int]]:
@@ -164,37 +202,18 @@ class VisionEngine:
         
         return processed
     
-    def extract_text(self, frame: np.ndarray, min_confidence: float = 0.3,
-                     min_length: int = 2) -> List[Dict]:
-        results = self.reader.readtext(frame)
-        
-        extracted = []
-        for (bbox, text, confidence) in results:
-            if confidence >= min_confidence and len(text.strip()) >= min_length:
-                extracted.append({
-                    "text": text.strip(),
-                    "confidence": confidence,
-                    "bbox": bbox
-                })
-        
-        return extracted
-    
-    def get_screen_text(self, save_debug: bool = False) -> str:
+    def get_frame_for_analysis(self, save_debug: bool = False) -> Optional[np.ndarray]:
+        """Get a frame ready for AI vision analysis"""
         frame = self.capture_screen(save_debug=save_debug)
         if frame is None:
-            return ""
-        
-        processed = self.preprocess_frame(frame, save_debug=save_debug)
-        results = self.extract_text(processed)
-        texts = [r["text"] for r in results]
-        
-        return " ".join(texts)
+            return None
+        return frame
     
     def draw_debug_overlay(self, frame: np.ndarray, results: List[Dict]) -> np.ndarray:
         debug_frame = frame.copy()
         
         for result in results:
-            bbox = result["bbox"]
+            bbox = result.get("bbox", [])
             text = result["text"]
             conf = result["confidence"]
             
@@ -225,13 +244,14 @@ def main():
         print("\nSetting default PS1 ROI...")
         engine.set_default_ps1_roi()
     
-    print("\nCapturing and processing frame...")
-    text = engine.get_screen_text(save_debug=True)
+    print("\nCapturing frame...")
+    frame = engine.get_frame_for_analysis(save_debug=True)
     
-    if text:
-        print(f"\nText detected:\n{'-' * 40}\n{text}\n{'-' * 40}")
+    if frame is not None:
+        print(f"Frame captured: {frame.shape}")
+        print("Frame ready for AI analysis")
     else:
-        print("\nNo text detected.")
+        print("Failed to capture frame")
     
     print(f"\nDebug frames saved to: {engine.debug_folder.absolute()}")
 

@@ -1,0 +1,214 @@
+# Metal Gear Solid 2: Sons of Liberty - Game Data
+# Format: AREA | VISUAL_DESCRIPTION | OBJECTIVE | ITEMS | NEXT_STEP | TIPS
+
+==============================================================================
+TANKER CHAPTER - SOLID SNAKE
+==============================================================================
+
+## AFT DECK (Starting Area)
+- Visual: External ship deck in rain, green cargo crates, large pipes, spotlight beams
+- Objective: Infiltrate the tanker undetected
+- Items: None in this starting area
+- Next: Go down the hatch to the ship interior (Navigation Deck)
+- Tip: Rain muffles footsteps. Use crates as cover.
+
+## AFT DECK - SPOTLIGHT AREA
+- Visual: Area with rotating spotlights, patrolling guards, stacked crates
+- Objective: Pass through spotlights without being seen
+- Items: Ration behind crates on the right
+- Next: Continue to the hatch at the end of the deck
+- Tip: Wait for spotlights to pass before moving. If spotted, hide until Alert ends.
+
+## DECK-A, CREW'S QUARTERS
+- Visual: Narrow internal corridor, cabin doors on both sides, artificial lighting
+- Objective: Pass through without alerting guards in the rooms
+- Items: Ration in corridor locker, M9 Tranquilizer ammo
+- Next: Proceed to Deck-A, Crew's Lounge
+- Tip: Guards may exit cabins. Knock on wall to lure and knock out.
+
+## DECK-A, CREW'S LOUNGE
+- Visual: Room with sofas, TV on, bar, vending machines
+- Objective: Pass through the room undetected
+- Items: Ration in vending machine (shoot it)
+- Next: Stairs to Deck-B
+- Tip: Guard watches TV - pass behind him silently.
+
+## DECK-B, CREW'S QUARTERS
+- Visual: Another quarters corridor, more patrolling guards
+- Objective: Continue descending through the ship
+- Items: Pentazemin in locker
+- Next: Deck-C
+- Tip: Use M9 to knock out guards from distance.
+
+## DECK-C, CREW'S QUARTERS
+- Visual: Similar corridor, but with more guards
+- Objective: Reach Deck-D
+- Items: Bandage
+- Next: Deck-D
+- Tip: Crawl under windows to avoid being seen.
+
+## DECK-D, CREW'S QUARTERS
+- Visual: Last quarters deck before Engine Room
+- Objective: Find the Engine Room entrance
+- Items: Chaff Grenade
+- Next: Engine Room
+- Tip: Guard sleeps in one of the cabins - stay quiet.
+
+## ENGINE ROOM
+- Visual: Huge room with giant machines, metal catwalks, very noisy
+- Objective: Cross the engine room
+- Items: Ration, M9 ammo
+- Next: Deck-2, Port
+- Tip: Machine noise covers your footsteps, but guards patrol the catwalks.
+
+## DECK-2, PORT (Cargo Hold)
+- Visual: Cargo area with containers, screen showing Metal Gear RAY
+- Objective: Photograph Metal Gear RAY
+- Items: Camera already equipped
+- Next: Take 4 photos of RAY as Otacon instructs
+- Tip: Use camera with R1. Photograph: front, "MARINES", "RAY", and one of containers.
+
+## BOSS: OLGA GURLUKOVICH
+- Visual: External deck, storm, tarp covering area, armed Olga
+- Objective: Defeat Olga in combat
+- Items: USP (pick up after defeating Olga)
+- Next: Return to Engine Room after cutscene
+- Tip: Shoot the light to blind her. When she hides, wait for her to reload before shooting.
+
+## HOLDS - MARINE AREA
+- Visual: Huge hold filled with Marines guarding Metal Gear RAY
+- Objective: Take photos of RAY without being detected
+- Items: None - photo area
+- Next: After photos, cutscene with Ocelot
+- Tip: Use upper catwalks. Photograph from above to avoid detection.
+
+==============================================================================
+PLANT CHAPTER - RAIDEN
+==============================================================================
+
+## STRUT A, DEEP SEA DOCK
+- Visual: Underwater dock, entry pool, elevators
+- Objective: Infiltrate Big Shell
+- Items: M9 provided by Colonel
+- Next: Strut A Roof
+- Tip: Your weapon is tranquilizer - does not kill, only puts to sleep.
+
+## STRUT A, ROOF
+- Visual: External rooftop, rain, catwalks connecting to other Struts
+- Objective: Find the first hostage
+- Items: Ration
+- Next: Strut A, Pump Room or AB Connecting Bridge
+- Tip: Guards patrol the roof - use cover.
+
+## AB CONNECTING BRIDGE
+- Visual: Bridge connecting Strut A and B, open to the sea
+- Objective: Cross to Strut B
+- Items: None
+- Next: Strut B
+- Tip: Careful with wind - can affect aim.
+
+## STRUT B, TRANSFORMER ROOM
+- Visual: Room with electric transformers, control panels
+- Objective: Cross to BC Bridge
+- Items: Chaff Grenade
+- Next: BC Connecting Bridge
+- Tip: Security cameras - use Chaff to disable.
+
+## BC CONNECTING BRIDGE
+- Visual: Long bridge over the sea
+- Objective: Cross to Strut C
+- Items: None
+- Next: Strut C, Dining Hall - FORTUNE ENCOUNTER
+- Tip: Cutscene with Fortune - she is invincible for now!
+
+## STRUT C, DINING HALL
+- Visual: Cafeteria with tables, kitchen nearby
+- Objective: Find Peter Stillman
+- Items: Coolant Spray (Peter gives to you)
+- Next: Start disabling C4 bombs
+- Tip: Peter teaches about the bombs - pay attention to instructions.
+
+## MISSION: DISABLE C4 BOMBS
+- Visual: Various locations in Struts A, B, C, D, E, F
+- Objective: Find and disable all C4 bombs with Coolant
+- Items: Bomb sensor (Peter provides)
+- Next: After disabling all, return to Strut A
+- Tip: Use sensor to find bombs. Spray with Coolant until frozen.
+
+## STRUT F, WAREHOUSE
+- Visual: Large warehouse with crates, tall shelves
+- Objective: Find the Nikita Launcher
+- Items: Nikita Launcher, ammo
+- Next: Use Nikita to reach inaccessible areas
+- Tip: Nikita is a controllable missile - useful for hitting distant targets.
+
+## BOSS: FATMAN
+- Visual: Heliport (Strut E), Fatman on roller skates, bombs scattered
+- Objective: Defeat Fatman
+- Items: Nothing during fight
+- Next: After defeating, disable the last bomb on his body
+- Tip: Shoot legs to knock him down. When he falls, shoot the head. Disable bombs he plants!
+
+## SHELL 1 CORE
+- Visual: Interior of Shell 1 structure, metal corridors
+- Objective: Infiltrate core and find the President
+- Items: Various along the way
+- Next: Find AK Suppressor, continue ascending
+- Tip: Many guards - intense stealth gameplay.
+
+## BOSS: VAMP (FIRST ENCOUNTER)
+- Visual: Pool in Shell 1 Core B2
+- Objective: Defeat Vamp
+- Items: Nothing during fight
+- Next: Continue to find Emma
+- Tip: Shoot head when he emerges from water. Avoid the knives!
+
+## SHELL 2 CORE
+- Visual: Structure similar to Shell 1
+- Objective: Find Emma Emmerich
+- Items: Various
+- Next: Escort Emma back
+- Tip: Emma fears water and insects - guide her carefully.
+
+## BOSS: VAMP (SECOND ENCOUNTER)
+- Visual: Oil Fence
+- Objective: Protect Emma while she crosses
+- Items: PSG1 Sniper Rifle
+- Next: After defeating Vamp, cutscene
+- Tip: Use Sniper to shoot Vamp. Protect Emma!
+
+## ARSENAL GEAR
+- Visual: Interior of Arsenal Gear, futuristic metal corridors
+- Objective: Escape with Snake
+- Items: High Frequency Blade (HF Blade)
+- Next: Fight through Metal Gear RAYs
+- Tip: Now you have the sword! Use it to cut enemies.
+
+## BOSS: METAL GEAR RAYs
+- Visual: Arena with multiple Metal Gear RAY
+- Objective: Destroy the RAYs
+- Items: Stinger Missile
+- Next: After destroying enough, cutscene
+- Tip: Shoot knees, then head when it opens. Snake helps!
+
+## BOSS: SOLIDUS SNAKE
+- Visual: Top of Federal Hall, New York
+- Objective: Defeat Solidus in sword combat
+- Items: HF Blade
+- Next: End of game
+- Tip: Block with L1, attack when he drops guard. Attack combos work well.
+
+==============================================================================
+IMPORTANT CODEC FREQUENCIES
+==============================================================================
+
+## TANKER
+- Otacon: 141.12 - Tips, save game
+- Colonel: 140.85 - Main mission
+
+## PLANT
+- Colonel: 140.85 - Main mission
+- Rose: 140.96 - Save game, personal story
+- Pliskin (Snake): 141.80 - Combat tips
+- Peter Stillman: 140.25 - Bomb mission
+- Mr. X: 140.48 - Secret information

@@ -9,17 +9,14 @@ opencv-python>=4.9.0
 numpy>=1.26.0
 Pillow>=10.2.0
 
-# OCR (text recognition)
-easyocr>=1.7.1
+# Knowledge base (pure Python text search, no heavy DLLs)
+# langchain and chromadb removed - using built-in TF-IDF search
 
-# Knowledge base & embeddings
-langchain>=0.1.0
-langchain-community>=0.0.20
-chromadb>=0.4.22
-sentence-transformers>=2.2.0
-
-# AI - Gemini Vision
+# AI - Cloud (optional, has rate limits)
 google-genai>=1.0.0
+
+# AI - Local with Ollama (recommended, no rate limits!)
+ollama>=0.4.0
 
 # UI
 PyQt6>=6.6.1
