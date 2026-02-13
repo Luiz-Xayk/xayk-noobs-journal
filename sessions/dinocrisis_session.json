@@ -1,0 +1,33 @@
+{
+  "game": "DinoCrisis",
+  "created_at": "2026-02-12T09:36:14.548318",
+  "last_played": "2026-02-12T09:36:14.549746",
+  "play_count": 2,
+  "total_playtime_minutes": 0,
+  "items_found": [],
+  "items_used": [],
+  "locations_visited": [],
+  "current_location": null,
+  "objectives_completed": [],
+  "current_objective": null,
+  "notes": [],
+  "events_log": [],
+  "ai_memory": [
+    {
+      "observation": "1. Current location: A room with a control panel and a terminal on the wall. The room appears to be a security or control area.\n2. Next objective: Find the correct registration number for the gate system, which is located nearby.\n3. Actionable instruction: Check your inventory for any documents or files you picked up that may contain the registration number. If you don't have it yet, search nearby rooms for notes or documents. Once you find the code, return to this terminal and enter it on the keypad.",
+      "location": null,
+      "timestamp": "2026-02-12T09:36:27.378332"
+    },
+    {
+      "observation": "1. Current location: Security room with a control panel and a terminal on the wall. The room appears to be a security or control area.\n2. Next objective: Find the correct registration number for the gate system, which is located nearby.\n3. Actionable instruction: Check your inventory for any documents or files you picked up that may contain the registration number. If you don't have it yet, search nearby rooms for notes or documents. Once you find the code, return to this terminal and enter it on the keypad.",
+      "location": null,
+      "timestamp": "2026-02-12T09:37:27.561273"
+    }
+  ],
+  "stuck_areas": [],
+  "tips_given": [
+    "1. Current location: A room with a control panel and a terminal on the wall. The room appears to be a security or control area.\n2. Next objective: Find the correct registration number for the gate system, which is located nearby.\n3. Actionable instruction: Check your inventory for any documents or files you picked up that may contain the registration number. If you don't have it yet, search nearby rooms for notes or documents. Once you find the code, return to this terminal and enter it on the keypad.",
+    "1. Current location: Security room with a control panel and a terminal on the wall. The room appears to be a security or control area.\n2. Next objective: Find the correct registration number for the gate system, which is located nearby.\n3. Actionable instruction: Check your inventory for any documents or files you picked up that may contain the registration number. If you don't have it yet, search nearby rooms for notes or documents. Once you find the code, return to this terminal and enter it on the keypad."
+  ],
+  "session_history": []
+}

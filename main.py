@@ -70,7 +70,7 @@ Rules:
 JOURNAL NOTE:"""
 
     # Prompt for active mode (gives hints)
-    ACTIVE_PROMPT = """You are a retro game assistant analyzing a screenshot from {game_name}.
+    ACTIVE_PROMPT = """You are a retro game assistant analyzing a LIVE screenshot from {game_name}.
 
 PLAYER'S CURRENT STATE:
 {session_state}
@@ -81,20 +81,27 @@ RECENT HISTORY (what happened before):
 GAME DATA (locations, objectives, items):
 {game_context}
 
-Look at this screenshot and:
-1. Identify the current location/area in the game
-2. Determine what the player should do next
-3. Give a concise, actionable instruction
+CRITICAL: Look at the screenshot CAREFULLY. Describe what is CURRENTLY on screen.
+
+Instructions:
+1. First identify EXACTLY what is visible on screen right now (menu, puzzle, gameplay, dialogue, keypad, etc.)
+2. If you see a PUZZLE or INTERACTIVE ELEMENT (keypad, terminal, code entry, gate system, etc.), give SPECIFIC advice for THAT puzzle
+3. If you see normal gameplay, identify the area and tell the player what to do next
+
+Format your response as:
+1. Current location: [where the player is]
+2. Next objective: [what needs to be done]
+3. Actionable instruction: [specific step-by-step if puzzle, or direction if exploring]
 
 Rules:
-- Be direct and concise (maximum 20 words)
-- Use action verbs (go, pick up, use, defeat, talk to, etc.)
-- If you can identify the area, give specific guidance
+- Focus on what is VISIBLE ON SCREEN right now, not general advice
+- If you see a keypad/code entry screen, tell the player they need to find the code in documents nearby
+- If you see a puzzle, give specific hints based on game data
 - Do NOT repeat the same advice from recent history
-- If unclear, say "Explore the area" or similar
+- If the screen changed from last time, give NEW advice matching the NEW screen
 - Answer in English
 {stuck_hint}
-NEXT ACTION:"""
+RESPONSE:"""
 
     # Extra hint when player seems stuck
     STUCK_HINT = """
@@ -134,6 +141,7 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
         self.is_running = False
         self.analysis_history: list = []  # Last N analyses for context
         self.stuck_counter = 0  # Track repeated similar analyses
+        self._same_task_count = 0  # Force update after N identical responses
         self.current_game = self._detect_game()
         
         # Start session for detected game
@@ -265,6 +273,8 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                 "ff": "final fantasy",
                 "dmc": "devil may cry",
                 "kh": "kingdom hearts",
+                "dc": "dino crisis",
+                "dino crisis": "dino crisis",
             }
             for abbr, full_name in game_abbreviations.items():
                 if abbr in window_title or full_name in window_title:
@@ -330,6 +340,46 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
             else:
                 self.stuck_counter = 0
         
+    def _truncate_response(self, text: str) -> str:
+        """Truncate AI response to keep only the structured part.
+        LLaVA tends to ramble after giving the structured 1/2/3 response."""
+        lines = text.split('\n')
+        
+        # Find the structured lines (starting with "1.", "2.", "3.")
+        structured_lines = []
+        found_structure = False
+        
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                if found_structure:
+                    continue  # Skip empty lines after structure
+                continue
+            
+            # Check if it's a numbered line (1., 2., 3.) 
+            if stripped[:2] in ("1.", "2.", "3.", "4.", "5."):
+                found_structure = True
+                structured_lines.append(stripped)
+            elif found_structure and stripped.startswith(("- ", "* ")):
+                # Allow bullet points after numbered lines
+                structured_lines.append(stripped)
+            elif found_structure:
+                # Stop at the first non-structured line after finding structure
+                break
+            elif not found_structure and len(structured_lines) == 0:
+                # If no structure found yet, keep first few lines
+                structured_lines.append(stripped)
+                if len(structured_lines) >= 3:
+                    break
+        
+        if structured_lines:
+            return '\n'.join(structured_lines)
+        
+        # Fallback: just keep first 300 chars
+        if len(text) > 300:
+            return text[:300].rsplit(' ', 1)[0] + "..."
+        return text
+    
     def _analyze_with_ollama(self, frame, game_context: str) -> str:
         """Analyze screenshot with Ollama (local, no limits!)"""
         if not self.ollama_model:
@@ -347,7 +397,7 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                 "game_name": self.current_game or "Unknown Game",
                 "session_state": self._get_session_state(),
                 "history": self._get_history_text(),
-                "game_context": game_context[:2000] if game_context else "No game data loaded",
+                "game_context": game_context[:3000] if game_context else "No game data loaded",
             }
             
             if not self.passive_mode:
@@ -375,7 +425,7 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                     }],
                     options={
                         'temperature': 0.3,
-                        'num_predict': 50
+                        'num_predict': 200
                     }
                 )
             else:
@@ -388,16 +438,21 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                     }],
                     options={
                         'temperature': 0.3,
-                        'num_predict': 50
+                        'num_predict': 200
                     }
                 )
             
             result = response['message']['content'].strip()
             
             # Clean up response
-            for prefix in ["JOURNAL NOTE:", "NEXT ACTION:", "Journal note:", "Next action:"]:
+            for prefix in ["JOURNAL NOTE:", "NEXT ACTION:", "Journal note:", "Next action:", 
+                          "RESPONSE:", "Response:"]:
                 if result.startswith(prefix):
                     result = result[len(prefix):].strip()
+            
+            # Truncate: keep only the structured part (lines starting with 1. 2. 3.)
+            # LLaVA tends to ramble after the structured response
+            result = self._truncate_response(result)
             
             return result
             
@@ -424,7 +479,7 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                 "game_name": self.current_game or "Unknown Game",
                 "session_state": self._get_session_state(),
                 "history": self._get_history_text(),
-                "game_context": game_context[:1500] if game_context else "No game data loaded",
+                "game_context": game_context[:3000] if game_context else "No game data loaded",
             }
             
             if not self.passive_mode:
@@ -436,16 +491,19 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
                 model=self.gemini_model,
                 contents=[prompt, img],
                 config=types.GenerateContentConfig(
-                    max_output_tokens=50,
+                    max_output_tokens=200,
                     temperature=0.3
                 )
             )
             
             result = response.text.strip()
             
-            for prefix in ["JOURNAL NOTE:", "NEXT ACTION:", "Journal note:", "Next action:"]:
+            for prefix in ["JOURNAL NOTE:", "NEXT ACTION:", "Journal note:", "Next action:",
+                          "RESPONSE:", "Response:"]:
                 if result.startswith(prefix):
                     result = result[len(prefix):].strip()
+            
+            result = self._truncate_response(result)
             
             return result
             
@@ -471,8 +529,8 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
         if frame is None:
             return None, None
         
-        # Build smarter search terms based on session state
-        search_terms = ["objective", "location", "area", "next step"]
+        # Build smarter search terms based on session state and recent context
+        search_terms = []
         
         # Add context from current state
         summary = self.session.get_session_summary()
@@ -481,20 +539,25 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
         if summary.get("current_objective"):
             search_terms.append(summary["current_objective"])
         
-        # Add terms from recent history
+        # Add terms from recent AI analysis history (what was seen on screen)
         if self.analysis_history:
             last = self.analysis_history[-1]
-            # Extract key words from last analysis
+            # Extract meaningful phrases from last analysis
+            search_terms.append(last)
             for word in last.split():
                 if len(word) > 4 and word.isalpha():
                     search_terms.append(word)
+        
+        # Always search for key game concepts
+        search_terms.extend(["puzzle", "gate system", "registration", "keypad", 
+                            "fingerprint", "code", "terminal", "objective"])
         
         game_context = ""
         game_filter = self.current_game
         
         seen_content = set()
-        for term in search_terms[:6]:  # Limit to 6 searches
-            results = self.knowledge.search(term, k=2, game_filter=game_filter)
+        for term in search_terms[:8]:  # Limit to 8 searches
+            results = self.knowledge.search(term, k=3, game_filter=game_filter)
             for r in results:
                 content_key = r["content"][:50]
                 if content_key not in seen_content:
@@ -508,9 +571,27 @@ Look carefully at the screenshot for doors, items, or interactive elements they 
         if task is None:
             return None, None
         
-        # Avoid repeating the exact same task
+        # Smarter duplicate detection: allow update if screen likely changed
         if task == self.last_task:
-            return None, None
+            self._same_task_count += 1
+            # Force update every 3 identical responses (screen may have changed)
+            if self._same_task_count < 3:
+                return None, None
+            else:
+                self._same_task_count = 0
+        else:
+            # Check word-level similarity instead of exact match
+            if self.last_task:
+                old_words = set(self.last_task.lower().split())
+                new_words = set(task.lower().split())
+                if old_words and new_words:
+                    overlap = len(old_words & new_words) / max(len(old_words), len(new_words))
+                    if overlap > 0.85:
+                        # Very similar but not identical - still count
+                        self._same_task_count += 1
+                        if self._same_task_count < 2:
+                            return None, None
+            self._same_task_count = 0
         
         self.last_task = task
         self._update_history(task)

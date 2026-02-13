@@ -1,0 +1,405 @@
+# Dino Crisis - Game Data
+# PS1 (1999) - Capcom
+# Protagonist: Regina | Team: Gail, Rick, Cooper (KIA early)
+# Setting: Ibis Island Research Facility
+
+==============================================================================
+CHAPTER 1 - FACILITY INFILTRATION
+==============================================================================
+
+## DISEMBARK POINT (Starting Area)
+- Visual: Jungle exterior, night, cliff edge, ocean in background, team rappels down
+- Objective: Enter the research facility
+- Items: None at start - Regina has Handgun (Glock 34)
+- Next: Move through the jungle path toward the facility entrance
+- Tip: Cooper is killed by a T-Rex at the start. You cannot save him.
+
+## FACILITY EXTERIOR
+- Visual: Outdoor path leading to facility, metal fences, industrial walls, searchlight towers
+- Objective: Find a way into the facility
+- Items: Med Pak S near the fence
+- Next: Enter through the back door or ventilation shaft
+- Tip: Watch for Velociraptors in the outdoor areas. They are fast and attack in packs.
+
+## ENTRANCE HALL
+- Visual: Main entrance of the facility, large room, reception desk, security cameras, tile floor
+- Objective: Explore the facility and find Dr. Kirk
+- Items: Med Pak S on the reception desk
+- Next: Multiple doors lead to different wings. Start with the Management Office side.
+- Tip: This room is a central hub. You will pass through here many times.
+
+## MANAGEMENT OFFICE CORRIDOR
+- Visual: Long corridor with office doors, fluorescent lighting, blood stains on walls
+- Objective: Search offices for keycards and clues
+- Items: DDK Input Disc N in one of the offices
+- Next: Check each office door for accessible rooms
+- Tip: Some doors require specific keycards or DDK discs. Note which doors are locked.
+
+## MANAGEMENT OFFICE
+- Visual: Office with desk, computer terminal, filing cabinets, dead researcher slumped on desk
+- Objective: Search the office for key items and documents
+- Items: Key Card L (on desk), Research Facility Map, Researcher's Journal
+- Next: Use Key Card L to access locked doors
+- Tip: Read all documents. They contain codes and clues for puzzles.
+
+## CONTROL ROOM
+- Visual: Large room with monitors, control panels, blinking lights, emergency status screens
+- Objective: Access facility systems and surveillance
+- Items: DDK Code Disc N (nearby), various documents
+- Next: Use DDK discs at locked doors, check security monitors
+- Tip: The monitors show different camera angles. Use them to check for dinosaurs ahead.
+
+## LOCKER ROOM / CHANGING ROOM
+- Visual: Room with metal lockers, benches, shower area
+- Objective: Search lockers for supplies
+- Items: Handgun Ammo (SG Bullets), Med Pak M in lockers
+- Next: Continue exploring the facility
+- Tip: Some lockers are locked. Come back later with the right keys.
+
+==============================================================================
+CHAPTER 2 - DDK SYSTEM AND KEYCARDS
+==============================================================================
+
+## DDK LOCK SYSTEM (Puzzle)
+- Visual: Door with a DDK terminal panel (two disc slots side by side)
+- Objective: Insert matching DDK Input Disc and DDK Code Disc to unlock doors
+- Items: DDK Discs are found throughout the facility (Input and Code pairs)
+- How it works: Find DDK Input Disc + DDK Code Disc with the SAME LETTER. Insert both into the DDK terminal next to a locked door. The code must match.
+- Tip: DDK discs come in pairs. DDK Input Disc N goes with DDK Code Disc N. Always keep track of which discs you have.
+
+## DDK DISC PAIRS
+- DDK N: Input Disc N + Code Disc N -> opens first DDK locked door
+- DDK E: Input Disc E + Code Disc E -> opens second DDK locked door
+- DDK W: Input Disc W + Code Disc W -> opens third DDK locked door
+- DDK S: Input Disc S + Code Disc S -> opens fourth DDK locked door
+- Tip: DDK codes often need to be decoded. The code on the Input Disc is scrambled. Look at the Code Disc for the cipher/key to unscramble it. Enter the unscrambled code.
+
+## KEY CARD SYSTEM
+- Key Card L: Opens doors marked with L lock
+- Key Card R: Opens doors marked with R lock
+- Key Card S: Opens specific restricted doors
+- Tip: Keycards are reusable. Once you find one, keep it in your inventory.
+
+==============================================================================
+CHAPTER 3 - MEDICAL ROOM AND FINGERPRINT PUZZLE
+==============================================================================
+
+## MEDICAL ROOM HALLWAY
+- Visual: Corridor leading to the medical room, emergency lights, damaged walls, claw marks
+- Objective: Reach the medical room to find supplies and important items
+- Items: Med Pak S in wall cabinet
+- Next: Enter the Medical Room
+- Tip: Raptors may ambush you in this hallway. Keep your weapon ready.
+
+## MEDICAL ROOM
+- Visual: Hospital/infirmary room, examination beds, medical equipment, medicine cabinets, dead researcher body on one of the beds
+- Objective: Search the room thoroughly. There is a dead researcher here.
+- Items: Med Pak L (in cabinet), Hemostat, documents about the facility
+- Next: Examine the dead body carefully for important items
+- Tip: Interact with the dead body. You need something from it.
+
+## DEAD RESEARCHER BODY (Key Event)
+- Visual: Dead researcher lying on examination bed or floor, lab coat, ID badge visible
+- Objective: Examine the dead body to obtain fingerprint data and/or their ID Card
+- Items: ID Card (from the body), Fingerprint data (collected from the body)
+- How to get fingerprint: Examine/interact with the dead body. Regina will collect the fingerprint data automatically when you examine the body closely. Pick up the ID Card from the body.
+- Next: You need to register this fingerprint on a computer terminal
+- Tip: The ID Card alone is not enough. You MUST register the fingerprint at a computer terminal before it becomes useful. The fingerprint unlocks restricted areas.
+
+## FINGERPRINT REGISTRATION (Key Puzzle)
+- Visual: Computer terminal / PC workstation with fingerprint scanner device attached, monitor showing "FINGERPRINT REGISTRATION" or "ID VERIFICATION" screen
+- Objective: Register the dead researcher's fingerprint data on the PC system
+- Where: The registration terminal is in the CONTROL ROOM or MANAGEMENT OFFICE area (look for a computer with a special scanner device attached)
+- How to solve:
+  1. First go to the Medical Room and examine the dead body to get the fingerprint/ID Card
+  2. Then go to the computer terminal with the fingerprint scanner (Control Room area)
+  3. Interact with the computer terminal
+  4. Select to register the fingerprint data
+  5. The system will save the fingerprint to the ID Card
+  6. Now the ID Card works on fingerprint-locked doors
+- Items needed: ID Card + Fingerprint data (both from the dead body)
+- Next: Use the registered ID Card on doors that require fingerprint verification
+- Tip: Without registering the fingerprint on the computer, the ID Card will NOT work on fingerprint-locked doors. The PC registration is mandatory.
+
+## FINGERPRINT-LOCKED DOORS
+- Visual: Doors with a fingerprint scanner panel next to them (different from DDK or keycard readers)
+- Objective: Use the registered ID Card to pass through fingerprint-locked doors
+- How: Stand in front of the door, use the registered ID Card from your inventory
+- Next: These doors lead to previously inaccessible areas of the facility
+- Tip: Once the ID Card is registered with the fingerprint, you can use it on ALL fingerprint-locked doors in the facility.
+
+==============================================================================
+CHAPTER 4 - RESEARCH AREA
+==============================================================================
+
+## RESEARCH LAB CORRIDOR
+- Visual: Clean white corridor, glass windows showing lab rooms, flickering lights
+- Objective: Access the research labs to find Dr. Kirk and more clues
+- Items: SG Bullets in supply closet
+- Next: Enter the main research lab
+- Tip: This area has more raptors. Some corridors have laser tripwire traps.
+
+## MAIN RESEARCH LAB
+- Visual: Large laboratory, scientific equipment, test tubes, computers, containment units
+- Objective: Search for research data about Dr. Kirk's experiments
+- Items: Key Item (varies), Research Data files, DDK discs
+- Next: Access deeper facility areas
+- Tip: Read the research data. It explains the Third Energy project.
+
+## PARTS STORAGE
+- Visual: Warehouse-like room with shelves, crates, mechanical parts, dim lighting
+- Objective: Find parts needed for facility repairs or puzzle solutions
+- Items: Various parts (Plug items), ammo, supplies
+- Next: Use parts in corresponding machines/terminals
+- Tip: Plug items are used in specific wall panels to restore power to doors and elevators.
+
+## STRATEGY ROOM
+- Visual: Meeting room with large table, projection screen, maps on walls
+- Objective: Find strategy documents and communicate with team
+- Items: Facility maps, mission documents
+- Next: Continue to deeper areas
+- Tip: This room sometimes has save points or item boxes nearby.
+
+==============================================================================
+CHAPTER 5 - UNDERGROUND FACILITY (B1/B2)
+==============================================================================
+
+## ELEVATOR TO B1
+- Visual: Large industrial elevator, metal grating, warning signs
+- Objective: Descend to underground level B1
+- Items: None in elevator
+- Next: B1 corridor
+- Tip: Save your game before going down. Underground areas are more dangerous.
+
+## B1 CORRIDOR
+- Visual: Underground concrete corridor, pipes along ceiling, emergency lighting, steam vents
+- Objective: Navigate through B1 to find the generator room
+- Items: Grenade Rounds, Med Pak M
+- Next: Generator Room or B1 Labs
+- Tip: T-Rex can appear in wider underground areas. If you hear heavy footsteps, prepare to run.
+
+## B1 EXPERIMENT ROOM
+- Visual: Underground lab with containment chambers, broken glass, escaped specimens
+- Objective: Search for research materials
+- Items: Key items for progression
+- Next: Continue through B1
+- Tip: Some containment units have items inside. Check broken chambers.
+
+## GENERATOR ROOM (Puzzle)
+- Visual: Large room with industrial generators, power conduits, control panel with colored indicators
+- Objective: Restore power to specific areas of the facility
+- Items: Power control keys, Plugs
+- How to solve: Insert the correct Plugs into the generator panel to route power. The order matters.
+- Next: Restoring power opens new paths in the facility
+- Tip: Wrong plug combinations may trigger alarms or disable other doors. Take note of which colors/numbers match.
+
+## B2 UNDERGROUND
+- Visual: Deeper underground level, more industrial, water pipes, narrower corridors
+- Objective: Find the Third Energy generator core
+- Items: Heavy weapons (Grenade Launcher parts)
+- Next: Third Energy lab
+- Tip: B2 has the most dangerous encounters. Stock up on ammo and healing before descending.
+
+## THIRD ENERGY LAB
+- Visual: High-tech lab with the Third Energy device, massive machine, glowing energy core
+- Objective: Access the Third Energy data and find Dr. Kirk
+- Items: Third Energy data disc
+- Next: Confrontation with Dr. Kirk or escape sequence
+- Tip: This is a critical story area. Pay attention to cutscenes.
+
+==============================================================================
+CHAPTER 6 - ESCAPE AND BOSS FIGHTS
+==============================================================================
+
+## T-REX ENCOUNTERS
+- Visual: Large open areas (courtyard, warehouse, heliport), T-Rex appears
+- Objective: Survive the T-Rex attack. Sometimes you fight, sometimes you run.
+- Items: Use Grenade Launcher for maximum damage
+- Weakness: Aim for the head. Use explosive rounds. Run when it charges.
+- Tip: The T-Rex appears multiple times. In some encounters you MUST run, not fight. If there is a door or escape route, USE IT.
+
+## BOSS: T-REX (Heliport)
+- Visual: Heliport area, helicopter in background, T-Rex blocking the escape
+- Objective: Defeat or evade the T-Rex to reach the helicopter
+- Items: Grenade Launcher, SG Bullets, Med Pak L
+- Weakness: Grenade rounds to the head. When it staggers, run past if possible.
+- Tip: Keep moving in circles. When it stops to roar, fire at the head. Dodge the charge attacks.
+
+## RAPTOR PACK ENCOUNTERS
+- Visual: Various corridors and rooms, 2-4 Velociraptors attacking together
+- Objective: Kill or evade raptors
+- Items: Handgun or Shotgun effective
+- Weakness: Shotgun at close range knocks them back. Handgun headshots are efficient.
+- Tip: Raptors attack in packs. Focus on one at a time. Back into a corner so they can only come from one direction.
+
+## ESCAPE SEQUENCE
+- Visual: Facility corridors with alarms, red emergency lights, timed sequence
+- Objective: Escape the facility before it is destroyed
+- Items: Use whatever you have left
+- Next: Reach the heliport or submarine dock
+- Tip: The ending changes based on choices you made during the game (following Gail's plan vs Rick's plan).
+
+==============================================================================
+BRANCHING CHOICES
+==============================================================================
+
+## CHOICE: GAIL'S PLAN vs RICK'S PLAN
+- Visual: Dialogue screen with two options during key story moments
+- Objective: Choose whose plan to follow (affects story path)
+- Gail's plan: More aggressive, direct confrontation approach
+- Rick's plan: More cautious, prioritizes escape and survival
+- Tip: You can play the game multiple times with different choices for different endings. Neither is "wrong."
+
+==============================================================================
+IMPORTANT ITEMS
+==============================================================================
+
+## ID CARD
+- Location: Dead researcher body in Medical Room area
+- Use: Opens fingerprint-locked doors AFTER registering the fingerprint on a PC terminal
+- Note: Must register fingerprint at computer terminal first. Without registration, card is useless on fingerprint doors.
+
+## DDK DISCS (Input + Code)
+- Location: Various rooms throughout the facility
+- Use: Paired discs (same letter) inserted into DDK terminals to unlock DDK-locked doors
+- Note: Each pair has a code that must be decoded. The Code Disc shows how to unscramble the Input Disc code.
+
+## KEY CARD L
+- Location: Management Office (on desk)
+- Use: Opens doors with L-type locks
+
+## KEY CARD R
+- Location: Found later in the Research Area
+- Use: Opens doors with R-type locks
+
+## PLUGS (Various Colors/Numbers)
+- Location: Parts Storage, various rooms
+- Use: Insert into generator panels to route power to specific facility areas
+- Note: Correct combination opens new paths. Wrong combination may lock you out temporarily.
+
+## GRENADE LAUNCHER
+- Location: Found in pieces (parts assembled) in the facility
+- Use: Most effective weapon against T-Rex and tough enemies
+
+## HANDGUN (GLOCK 34)
+- Location: Starting weapon
+- Use: Standard combat weapon. Effective against raptors.
+
+## SHOTGUN (FRANCHI SPAS-12)
+- Location: Found in the facility (usually in a locked room)
+- Use: Powerful at close range. Knocks back raptors.
+
+## MED PAK (S / M / L)
+- Location: Throughout the facility in cabinets, rooms, lockers
+- Use: Heals injuries. S = small heal, M = medium, L = full heal
+
+## HEMOSTAT
+- Location: Medical Room, various locations
+- Use: Stops bleeding status effect
+
+## RESUSCITATION
+- Location: Rare, usually in underground areas
+- Use: Prevents death once (like a second chance)
+
+==============================================================================
+COMPUTER TERMINALS AND CODE PUZZLES
+==============================================================================
+
+## GATE SYSTEM - REGISTRATION NUMBER (Puzzle)
+- Visual: Computer screen showing "Gate System" and "Registration Number" with a number keypad (0-9), fingerprint scanner device visible on the right side of the terminal
+- Objective: Enter the correct registration number to register a fingerprint or unlock a gate/door
+- Where: Various security terminals throughout the facility
+- How to solve:
+  1. You need the correct registration number/code BEFORE using this terminal
+  2. The registration number is found in DOCUMENTS, MEMOS, or RESEARCHER NOTES scattered in nearby rooms
+  3. Check your inventory for any documents/files you picked up - they may contain the code
+  4. If you dont have the code yet, LEAVE this terminal and search nearby rooms for documents
+  5. Once you have the code, return here and enter it on the keypad
+  6. After entering the correct number, the system will register the fingerprint or unlock the gate
+- Tip: If you are at this screen without the code, you need to backtrack and find a document with the registration number. Check offices, desks, and dead researchers for notes. The code is usually a 3-7 digit number found in a file or memo nearby.
+
+## SECURITY TERMINAL - ID REGISTRATION
+- Visual: Computer terminal with screen showing ID or fingerprint registration interface
+- Objective: Register ID Card or fingerprint data in the facility security system
+- How to solve:
+  1. Make sure you have the ID Card AND fingerprint data in your inventory
+  2. Interact with the terminal
+  3. Select the registration option
+  4. The system will link the fingerprint to the ID Card
+  5. Now fingerprint-locked doors will accept your ID Card
+- Tip: You must have both the ID Card and the fingerprint data before you can register. If the terminal doesnt work, you are missing one of these items.
+
+## NUMBER KEYPAD PUZZLES (General)
+- Visual: Any screen showing a number keypad with digits 0-9
+- Objective: Enter the correct numeric code
+- How to solve: The code is ALWAYS found somewhere in the game world - in documents, written on walls, in memos, or told to you by characters. You never need to guess. If you dont know the code, explore nearby rooms and read all documents.
+- Tip: Codes are usually 3 to 7 digits. Check your inventory for any documents or files you havent read yet.
+
+## COMPUTER TERMINAL - POWER/SYSTEM CONTROL
+- Visual: Computer screen with system control options, power routing, or security settings
+- Objective: Activate or deactivate facility systems
+- Tip: Read all on-screen text carefully. Some terminals have multiple options.
+
+==============================================================================
+PUZZLE SOLUTIONS SUMMARY
+==============================================================================
+
+## FINGERPRINT PUZZLE (Step by Step)
+1. Go to the Medical Room area
+2. Find the dead researcher body
+3. Examine the body to collect the fingerprint data and ID Card
+4. Go to the computer terminal in the Control Room / Management Office area (look for a PC with a scanner attached)
+5. If the terminal shows "Gate System - Registration Number", you need a numeric code first
+6. Find the registration number in nearby documents/memos (check offices, desks, dead bodies for notes)
+7. Enter the registration number on the keypad
+8. Use the terminal to register the fingerprint on the ID Card
+9. Now the ID Card works on all fingerprint-scanner doors in the facility
+- Common mistake: Going to the Gate System terminal without the registration number code. The code is found in documents in nearby rooms.
+- Common mistake: Trying to use the ID Card on fingerprint doors BEFORE registering at the PC. It will not work. You MUST register first.
+
+## DDK PUZZLE (General)
+1. Find DDK Input Disc (letter X)
+2. Find DDK Code Disc (same letter X)
+3. Go to the DDK terminal at the locked door
+4. Insert both discs
+5. Decode the code: The Code Disc provides the cipher to decode the Input Disc
+6. Enter the decoded code
+7. Door unlocks
+
+## GENERATOR PUZZLE
+1. Find the correct Plugs from Parts Storage or other rooms
+2. Go to the Generator Room
+3. Insert Plugs into the correct slots on the control panel
+4. Match colors/numbers to the diagram near the generator
+5. Power is restored to locked doors and elevators
+
+## LASER FENCE PUZZLE
+1. Find the power panel near the laser fence
+2. Turn off power to disable the fence (may require a specific item or code)
+3. Pass through quickly before it reactivates (some are timed)
+
+==============================================================================
+SAVE AND INVENTORY SYSTEM
+==============================================================================
+
+## SAVE POINTS
+- Visual: Computer terminals with green screens scattered through the facility
+- Use: Interact to save your game
+- Tip: Save often. The game can be punishing.
+
+## ITEM BOXES
+- Visual: Yellow emergency boxes on walls
+- Use: Store and retrieve items. All item boxes are connected (put item in one, take from any other).
+- Tip: You have limited inventory space. Store items you dont need right now.
+
+==============================================================================
+GENERAL TIPS
+==============================================================================
+
+- Always read documents and files you find. They contain puzzle solutions and codes.
+- Manage your inventory carefully. You have limited space.
+- Save ammo when possible. Some encounters can be avoided by running.
+- The game has multiple endings based on your choices during the story.
+- If you are stuck, backtrack and check rooms you may have missed.
+- Examine everything. Interact with desks, bodies, computers, and any highlighted objects.
+- The map shows which doors you havent opened yet (marked differently).

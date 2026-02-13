@@ -54,6 +54,7 @@ class VisionEngine:
         "Sons of Liberty",
         "Snake Eater",
         "Twin Snakes",
+        "Dino Crisis",
     ]
     
     def __init__(self, debug_folder: str = "debug"):
@@ -93,38 +94,76 @@ class VisionEngine:
             height_percent=0.25
         )
     
+    # Window titles to EXCLUDE (browsers, IDEs, etc.)
+    EXCLUDED_WINDOWS = [
+        "chrome", "firefox", "edge", "opera", "brave", "safari", "vivaldi",
+        "cursor", "vscode", "visual studio", "code -", "notepad", "sublime",
+        "discord", "slack", "telegram", "whatsapp", "spotify",
+        "explorer", "task manager", "powershell", "cmd.exe", "terminal",
+        "gamefaqs", "youtube", "twitch", "reddit", "google",
+    ]
+    
+    def _is_excluded_window(self, title: str) -> bool:
+        """Check if window title belongs to a browser, IDE, or other non-game app"""
+        title_lower = title.lower()
+        for excluded in self.EXCLUDED_WINDOWS:
+            if excluded in title_lower:
+                return True
+        return False
+    
     def find_emulator_window(self, custom_title: Optional[str] = None) -> bool:
         if not WINDOWS_AVAILABLE:
             return False
         
-        # Build search list: custom title, emulator names, and game keywords
-        titles_to_search = []
-        if custom_title:
-            titles_to_search.append(custom_title)
-        else:
-            titles_to_search.extend(self.EMULATOR_TITLES)
-            titles_to_search.extend(self.GAME_KEYWORDS)
+        # Collect ALL visible windows first
+        all_windows = []
         
-        def callback(hwnd, results):
+        def enum_callback(hwnd, windows_list):
             if win32gui.IsWindowVisible(hwnd):
                 title = win32gui.GetWindowText(hwnd)
-                if not title:
+                if title and len(title) > 2:
+                    windows_list.append((hwnd, title))
+            return True
+        
+        win32gui.EnumWindows(enum_callback, all_windows)
+        
+        # Custom title: search directly but still exclude browsers
+        if custom_title:
+            for hwnd, title in all_windows:
+                if custom_title.lower() in title.lower() and not self._is_excluded_window(title):
+                    self.target_window_handle = hwnd
+                    self.target_window_title = title
+                    print(f"Window found: '{title}'")
                     return True
-                for search_title in titles_to_search:
-                    if search_title and search_title.lower() in title.lower():
-                        results.append((hwnd, title))
-                        return True
-            return True
         
-        results = []
-        win32gui.EnumWindows(callback, results)
+        # PHASE 1: Search for known emulator names (highest priority)
+        for hwnd, title in all_windows:
+            title_lower = title.lower()
+            for emu_name in self.EMULATOR_TITLES:
+                if emu_name.lower() in title_lower:
+                    self.target_window_handle = hwnd
+                    self.target_window_title = title
+                    print(f"Emulator found: '{title}'")
+                    return True
         
-        if results:
-            self.target_window_handle, self.target_window_title = results[0]
-            print(f"Window found: '{self.target_window_title}'")
-            return True
+        # PHASE 2: Search by game keywords but EXCLUDE browsers/IDEs/etc
+        for hwnd, title in all_windows:
+            if self._is_excluded_window(title):
+                continue
+            title_lower = title.lower()
+            for game_keyword in self.GAME_KEYWORDS:
+                if game_keyword.lower() in title_lower:
+                    self.target_window_handle = hwnd
+                    self.target_window_title = title
+                    print(f"Game window found: '{title}'")
+                    return True
         
-        print("No emulator window found")
+        # PHASE 3: Last resort - print available windows for debugging
+        print("No emulator window found. Visible windows:")
+        for hwnd, title in all_windows[:15]:
+            excluded = " [EXCLUDED]" if self._is_excluded_window(title) else ""
+            print(f"  - '{title}'{excluded}")
+        
         return False
     
     def get_window_rect(self) -> Optional[Tuple[int, int, int, int]]:

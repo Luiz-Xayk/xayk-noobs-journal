@@ -51,28 +51,44 @@ An overlay assistant for retro games that uses AI vision to analyze your screen 
 
 ## What's New (Latest Update)
 
-### Journal Mode Improvements
-- **Category Filters** - Filter notes by type: ALL / NOTES / ITEMS / LOCS / OBJS
-- **Timestamps** - Every entry shows when it was created
-- **Type Selector** - Choose between Note, Item, Location, or Objective when adding entries
-- **Export to File** - Export all notes to `exports/` folder, organized by category
-- **Full Persistence** - Notes are saved automatically and restored when you reopen the journal
+### Smarter Window Detection
+- **3-phase detection**: Prioritizes emulator windows over browsers and other apps
+- **Browser exclusion**: Chrome, Firefox, Edge, and other non-game windows are automatically filtered out
+- **Debug output**: If no emulator is found, lists all visible windows for troubleshooting
 
-### Smarter Guide Mode
-- **Analysis History** - AI remembers the last 10 observations to avoid repeating itself
-- **Stuck Detection** - If you're in the same area for too long, the AI gives more specific hints
-- **Contextual Search** - Knowledge base searches now use your current location, objective, and recent history
-- **Tips Memory** - Tips given are saved to avoid repetition across the session
+### Better AI Analysis
+- **Screen-reactive prompt**: AI now focuses on what is currently visible on screen (puzzles, menus, keypads, etc.) instead of giving generic area advice
+- **Structured responses**: Output is formatted as location + objective + actionable instruction
+- **Response truncation**: Removes rambling text from LLaVA, keeps only the useful structured part
+- **Larger context window**: More game data is sent to the AI for better contextual answers (3000 chars)
+- **Higher token limit**: 200 tokens for more detailed and useful guidance
 
-### Auto Game Detection
-- Matches the emulator window title (e.g. "PCSX2 - Metal Gear Solid 2") with available guides
-- Supports abbreviation matching (MGS2, RE2, SH, FF, DMC, KH, etc.)
+### Improved Duplicate Detection
+- **Word-level similarity**: Instead of blocking only exact duplicate responses, uses 85% word overlap threshold
+- **Force refresh**: After 3 identical responses, forces an update (screen may have changed)
+- **Smarter search**: Knowledge base queries now include recent AI observations and key game concepts
 
-### Cross-Session Memory
-- AI observations are stored between sessions
-- Stuck areas are tracked and shared with the AI for better hints
-- Session summary saved on exit (where you stopped, what you were doing)
-- Rich recap when you return to a game
+### Dino Crisis Guide
+- Added complete game data for Dino Crisis (PS1)
+- Covers all areas, puzzles, boss fights, items, and branching paths
+- Detailed step-by-step for Gate System, Fingerprint, DDK, and Generator puzzles
+
+### Previous Updates
+
+#### Journal Mode
+- Category Filters (ALL / NOTES / ITEMS / LOCS / OBJS), timestamps, type selector
+- Export to file, full persistence (save/load from disk)
+
+#### Guide Mode
+- Analysis history (last 10 observations), stuck detection, contextual search, tips memory
+
+#### Auto Game Detection
+- Matches emulator window title with available guides
+- Abbreviation matching (MGS2, RE2, SH, FF, DMC, KH, DC, etc.)
+
+#### Cross-Session Memory
+- AI observations stored between sessions, stuck areas tracked
+- Session summary on exit, rich recap on return
 
 ---
 
@@ -190,6 +206,8 @@ Organize guides by game folders:
 
 ```
 guides/
+├── DinoCrisis/
+│   └── game_data.txt
 ├── MGS2/
 │   └── game_data.txt
 ├── ResidentEvil2/
@@ -254,12 +272,14 @@ When you return to a game, you'll see a rich recap of your progress.
 
 - PCSX2 (PS2)
 - DuckStation (PS1)
+- ePSXe (PS1)
 - PPSSPP (PSP)
 - Dolphin (GameCube/Wii)
 - RetroArch
 - Citra (3DS)
 - mGBA (GBA)
 - Snes9x (SNES)
+- Xenia (Xbox 360)
 - Should work with any windowed game
 
 ---
@@ -269,6 +289,8 @@ When you return to a game, you'll see a rich recap of your progress.
 - **Gemini Rate Limits**: Free tier allows ~15 requests/minute (use Ollama for unlimited)
 - **Visual Recognition**: Works best with games that have clear visual cues
 - **Guide Quality**: Results depend on the quality of your game data files
+- **LLaVA Speed**: Local vision analysis takes 3-10 seconds depending on hardware (GPU recommended)
+- **Window Detection**: Close browser tabs with game names (e.g. GameFAQs) to avoid capturing the wrong window
 
 ---
 
@@ -284,6 +306,9 @@ When you return to a game, you'll see a rich recap of your progress.
 - [x] Auto game detection from emulator window
 - [x] Export notes to file
 - [x] Cross-session AI memory
+- [x] Smart window detection (browser/IDE exclusion)
+- [x] Screen-reactive AI analysis
+- [x] Response truncation and structured output
 - [ ] Multi-language support
 - [ ] Gameplay recording and analysis
 - [ ] Custom overlay themes
